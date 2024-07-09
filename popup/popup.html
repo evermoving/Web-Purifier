@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>PagePurifier</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h1>PagePurifier</h1>
-  <label class="switch">
-    <input type="checkbox" id="enable-toggle">
-    <span class="slider round"></span>
-  </label>
-  <button id="open-options" class="settings-button">⚙️</button>
+  <div class="container">
+    <h1>PagePurifier</h1>
+    <div class="toggle-container">
+      <label class="switch">
+        <input type="checkbox" id="enable-toggle">
+        <span class="slider round"></span>
+      </label>
+      <span class="toggle-label">Enable PagePurifier</span>
+    </div>
+    <button id="open-options" class="btn">Open Settings</button>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>

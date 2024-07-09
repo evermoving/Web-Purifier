@@ -6,11 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadOptions();
   
   document.getElementById('add-website').addEventListener('click', addWebsite);
-  document.getElementById('save-website-group').addEventListener('click', saveWebsiteGroup);
   document.getElementById('add-word').addEventListener('click', addWord);
-  document.getElementById('save-word-group').addEventListener('click', saveWordGroup);
-  document.getElementById('save-assignment').addEventListener('click', saveAssignment);
-  document.getElementById('website-group-select').addEventListener('change', updateWordGroupCheckboxes);
 });
 
 async function loadOptions() {
@@ -22,8 +18,6 @@ async function loadOptions() {
   updateWebsiteGroups();
   updateWordGroups();
   updateAssignments();
-  updateWebsiteGroupSelect();
-  updateWordGroupCheckboxes();
 }
 
 function updateWebsiteGroups() {
@@ -32,13 +26,36 @@ function updateWebsiteGroups() {
   
   for (const [groupName, websites] of Object.entries(websiteGroups)) {
     const groupDiv = document.createElement('div');
+    groupDiv.className = 'group-item';
     groupDiv.innerHTML = `
-      <h3>${groupName}</h3>
-      <ul>
-        ${websites.map(website => `<li>${website}</li>`).join('')}
-      </ul>
+      <input type="text" value="${groupName}" data-original="${groupName}">
+      <button class="delete-btn">Delete</button>
     `;
     container.appendChild(groupDiv);
+
+    const input = groupDiv.querySelector('input');
+    input.addEventListener('change', () => updateGroupName('website', groupName, input.value));
+
+    const deleteBtn = groupDiv.querySelector('.delete-btn');
+    deleteBtn.addEventListener('click', () => deleteGroup('website', groupName));
+
+    const websiteList = document.createElement('ul');
+    websiteList.className = 'group-content';
+    websites.forEach(website => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <input type="text" value="${website}">
+        <button class="delete-btn">Delete</button>
+      `;
+      websiteList.appendChild(listItem);
+
+      const websiteInput = listItem.querySelector('input');
+      websiteInput.addEventListener('change', () => updateWebsite(groupName, website, websiteInput.value));
+
+      const deleteWebsiteBtn = listItem.querySelector('.delete-btn');
+      deleteWebsiteBtn.addEventListener('click', () => deleteWebsite(groupName, website));
+    });
+    groupDiv.appendChild(websiteList);
   }
 }
 
@@ -48,13 +65,36 @@ function updateWordGroups() {
   
   for (const [groupName, words] of Object.entries(wordGroups)) {
     const groupDiv = document.createElement('div');
+    groupDiv.className = 'group-item';
     groupDiv.innerHTML = `
-      <h3>${groupName}</h3>
-      <ul>
-        ${words.map(word => `<li>${word}</li>`).join('')}
-      </ul>
+      <input type="text" value="${groupName}" data-original="${groupName}">
+      <button class="delete-btn">Delete</button>
     `;
     container.appendChild(groupDiv);
+
+    const input = groupDiv.querySelector('input');
+    input.addEventListener('change', () => updateGroupName('word', groupName, input.value));
+
+    const deleteBtn = groupDiv.querySelector('.delete-btn');
+    deleteBtn.addEventListener('click', () => deleteGroup('word', groupName));
+
+    const wordList = document.createElement('ul');
+    wordList.className = 'group-content';
+    words.forEach(word => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <input type="text" value="${word}">
+        <button class="delete-btn">Delete</button>
+      `;
+      wordList.appendChild(listItem);
+
+      const wordInput = listItem.querySelector('input');
+      wordInput.addEventListener('change', () => updateWord(groupName, word, wordInput.value));
+
+      const deleteWordBtn = listItem.querySelector('.delete-btn');
+      deleteWordBtn.addEventListener('click', () => deleteWord(groupName, word));
+    });
+    groupDiv.appendChild(wordList);
   }
 }
 
@@ -62,95 +102,152 @@ function updateAssignments() {
   const container = document.getElementById('assignments');
   container.innerHTML = '';
   
-  for (const [websiteGroup, wordGroupList] of Object.entries(assignments)) {
+  for (const websiteGroup of Object.keys(websiteGroups)) {
     const assignmentDiv = document.createElement('div');
+    assignmentDiv.className = 'assignment-item';
     assignmentDiv.innerHTML = `
       <h3>${websiteGroup}</h3>
-      <ul>
-        ${wordGroupList.map(wordGroup => `<li>${wordGroup}</li>`).join('')}
-      </ul>
+      <div class="word-group-list"></div>
     `;
     container.appendChild(assignmentDiv);
-  }
-}
 
-function updateWebsiteGroupSelect() {
-  const select = document.getElementById('website-group-select');
-  select.innerHTML = '';
-  
-  for (const groupName of Object.keys(websiteGroups)) {
-    const option = document.createElement('option');
-    option.value = groupName;
-    option.textContent = groupName;
-    select.appendChild(option);
-  }
-}
-
-function updateWordGroupCheckboxes() {
-  const container = document.getElementById('word-group-checkboxes');
-  container.innerHTML = '';
-  
-  const selectedWebsiteGroup = document.getElementById('website-group-select').value;
-  const assignedWordGroups = assignments[selectedWebsiteGroup] || [];
-  
-  for (const groupName of Object.keys(wordGroups)) {
-    const checkboxItem = document.createElement('div');
-    checkboxItem.className = 'checkbox-item';
-    checkboxItem.innerHTML = `
-      <input type="checkbox" id="wg-${groupName}" value="${groupName}" ${assignedWordGroups.includes(groupName) ? 'checked' : ''}>
-      <label for="wg-${groupName}">${groupName}</label>
-    `;
-    container.appendChild(checkboxItem);
+    const wordGroupListDiv = assignmentDiv.querySelector('.word-group-list');
+    Object.keys(wordGroups).forEach(wordGroup => {
+      const wordGroupTag = document.createElement('span');
+      wordGroupTag.className = `word-group-tag ${assignments[websiteGroup]?.includes(wordGroup) ? 'active' : 'inactive'}`;
+      wordGroupTag.textContent = wordGroup;
+      wordGroupTag.addEventListener('click', () => toggleAssignment(websiteGroup, wordGroup));
+      wordGroupListDiv.appendChild(wordGroupTag);
+    });
   }
 }
 
 function addWebsite() {
   const websiteInput = document.getElementById('new-website');
   const website = websiteInput.value.trim();
+  const groupName = document.getElementById('new-website-group').value.trim();
   
-  if (website) {
-    const groupName = document.getElementById('new-website-group').value.trim();
+  if (website && groupName) {
     if (!websiteGroups[groupName]) {
       websiteGroups[groupName] = [];
     }
     websiteGroups[groupName].push(website);
     websiteInput.value = '';
+    document.getElementById('new-website-group').value = '';
     updateWebsiteGroups();
-    updateWebsiteGroupSelect();
+    updateAssignments();
+    saveOptions();
   }
-}
-
-function saveWebsiteGroup() {
-  browser.storage.local.set({ websiteGroups });
 }
 
 function addWord() {
   const wordInput = document.getElementById('new-word');
   const word = wordInput.value.trim();
+  const groupName = document.getElementById('new-word-group').value.trim();
   
-  if (word) {
-    const groupName = document.getElementById('new-word-group').value.trim();
+  if (word && groupName) {
     if (!wordGroups[groupName]) {
       wordGroups[groupName] = [];
     }
     wordGroups[groupName].push(word);
     wordInput.value = '';
+    document.getElementById('new-word-group').value = '';
     updateWordGroups();
-    updateWordGroupCheckboxes();
-  }
-}
-
-function saveWordGroup() {
-  browser.storage.local.set({ wordGroups });
-}
-
-function saveAssignment() {
-  const websiteGroup = document.getElementById('website-group-select').value;
-  const selectedWordGroups = Array.from(document.querySelectorAll('#word-group-checkboxes input:checked')).map(checkbox => checkbox.value);
-  
-  if (websiteGroup && selectedWordGroups.length > 0) {
-    assignments[websiteGroup] = selectedWordGroups;
     updateAssignments();
-    browser.storage.local.set({ assignments });
+    saveOptions();
   }
 }
+
+function updateGroupName(type, oldName, newName) {
+  if (oldName !== newName) {
+    if (type === 'website') {
+      websiteGroups[newName] = websiteGroups[oldName];
+      delete websiteGroups[oldName];
+      
+      // Update assignments
+      if (assignments[oldName]) {
+        assignments[newName] = assignments[oldName];
+        delete assignments[oldName];
+      }
+    } else if (type === 'word') {
+      wordGroups[newName] = wordGroups[oldName];
+      delete wordGroups[oldName];
+      
+      // Update assignments
+      for (const websiteGroup in assignments) {
+        const index = assignments[websiteGroup].indexOf(oldName);
+        if (index !== -1) {
+          assignments[websiteGroup][index] = newName;
+        }
+      }
+    }
+    saveOptions();
+  }
+}
+
+function deleteGroup(type, groupName) {
+  if (type === 'website') {
+    delete websiteGroups[groupName];
+    delete assignments[groupName];
+  } else if (type === 'word') {
+    delete wordGroups[groupName];
+    for (const websiteGroup in assignments) {
+      assignments[websiteGroup] = assignments[websiteGroup].filter(wg => wg !== groupName);
+    }
+  }
+  updateWebsiteGroups();
+  updateWordGroups();
+  updateAssignments();
+  saveOptions();
+}
+
+function updateWebsite(groupName, oldWebsite, newWebsite) {
+  const index = websiteGroups[groupName].indexOf(oldWebsite);
+  if (index !== -1) {
+    websiteGroups[groupName][index] = newWebsite;
+    saveOptions();
+  }
+}
+
+function deleteWebsite(groupName, website) {
+  websiteGroups[groupName] = websiteGroups[groupName].filter(w => w !== website);
+  updateWebsiteGroups();
+  saveOptions();
+}
+
+function updateWord(groupName, oldWord, newWord) {
+  const index = wordGroups[groupName].indexOf(oldWord);
+  if (index !== -1) {
+    wordGroups[groupName][index] = newWord;
+    saveOptions();
+  }
+}
+
+function deleteWord(groupName, word) {
+  wordGroups[groupName] = wordGroups[groupName].filter(w => w !== word);
+  updateWordGroups();
+  saveOptions();
+}
+
+function toggleAssignment(websiteGroup, wordGroup) {
+  if (!assignments[websiteGroup]) {
+    assignments[websiteGroup] = [];
+  }
+  
+  const index = assignments[websiteGroup].indexOf(wordGroup);
+  if (index === -1) {
+    assignments[websiteGroup].push(wordGroup);
+  } else {
+    assignments[websiteGroup].splice(index, 1);
+  }
+  
+  updateAssignments();
+  saveOptions();
+}
+
+function saveOptions() {
+  browser.storage.local.set({ websiteGroups, wordGroups, assignments });
+}
+
+// Initial load
+loadOptions();

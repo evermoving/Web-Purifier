@@ -1,5 +1,5 @@
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === 'checkAndHide') {
+    if (message.action === 'updateState') {
       hideElements();
     }
   });
@@ -33,3 +33,9 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
   }
   
+  // Initial check when the page loads
+  hideElements();
+  
+  // Set up a MutationObserver to check for dynamically added content
+  const observer = new MutationObserver(hideElements);
+  observer.observe(document.body, { childList: true, subtree: true });
