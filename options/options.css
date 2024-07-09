@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #dfbaba;
+    background-color: #1d1d1d;
     margin: 0;
     padding: 20px;
   }
@@ -8,14 +8,14 @@ body {
   .container {
     max-width: 800px;
     margin: 0 auto;
-    background-color: rgb(119, 119, 119);
+    background-color: rgb(73, 73, 73);
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   h1, h2 {
-    color: #cfcfcf;
+    color: #e0e0e0;
   }
   
   .groups-container {
@@ -30,7 +30,7 @@ body {
   
   .group-list, .assignments-list {
     background-color: #707070;
-    border: 1px solid #0f0f0f;
+    border: 1px solid #e2e2e2;
     border-radius: 4px;
     padding: 10px;
     margin-bottom: 10px;
