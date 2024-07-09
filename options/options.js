@@ -28,35 +28,57 @@ function updateWebsiteGroups() {
     const groupDiv = document.createElement('div');
     groupDiv.className = 'group-item';
     groupDiv.innerHTML = `
-      <input type="text" value="${groupName}" data-original="${groupName}">
-      <button class="delete-btn">Delete</button>
+      <div class="group-header">
+        <label>Group name: <input type="text" value="${groupName}" data-original="${groupName}"></label>
+        <button class="delete-btn delete-group-btn">Delete group</button>
+      </div>
     `;
     container.appendChild(groupDiv);
 
     const input = groupDiv.querySelector('input');
     input.addEventListener('change', () => updateGroupName('website', groupName, input.value));
 
-    const deleteBtn = groupDiv.querySelector('.delete-btn');
+    const deleteBtn = groupDiv.querySelector('.delete-group-btn');
     deleteBtn.addEventListener('click', () => deleteGroup('website', groupName));
 
     const websiteList = document.createElement('ul');
     websiteList.className = 'group-content';
     websites.forEach(website => {
-      const listItem = document.createElement('li');
-      listItem.innerHTML = `
-        <input type="text" value="${website}">
-        <button class="delete-btn">Delete</button>
-      `;
+      const listItem = createWebsiteListItem(groupName, website);
       websiteList.appendChild(listItem);
-
-      const websiteInput = listItem.querySelector('input');
-      websiteInput.addEventListener('change', () => updateWebsite(groupName, website, websiteInput.value));
-
-      const deleteWebsiteBtn = listItem.querySelector('.delete-btn');
-      deleteWebsiteBtn.addEventListener('click', () => deleteWebsite(groupName, website));
     });
     groupDiv.appendChild(websiteList);
+
+    const addUrlBtn = document.createElement('button');
+    addUrlBtn.textContent = 'Add URL';
+    addUrlBtn.className = 'btn add-url-btn';
+    addUrlBtn.addEventListener('click', () => addUrlToGroup(groupName, websiteList));
+    groupDiv.appendChild(addUrlBtn);
   }
+}
+
+function createWebsiteListItem(groupName, website) {
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `
+    <label>URL: <input type="text" value="${website}"></label>
+    <button class="delete-btn delete-url-btn">Delete URL</button>
+  `;
+
+  const websiteInput = listItem.querySelector('input');
+  websiteInput.addEventListener('change', () => updateWebsite(groupName, website, websiteInput.value));
+
+  const deleteUrlBtn = listItem.querySelector('.delete-url-btn');
+  deleteUrlBtn.addEventListener('click', () => deleteWebsite(groupName, website));
+
+  return listItem;
+}
+
+function addUrlToGroup(groupName, websiteList) {
+  const newWebsite = '';
+  websiteGroups[groupName].push(newWebsite);
+  const listItem = createWebsiteListItem(groupName, newWebsite);
+  websiteList.appendChild(listItem);
+  saveOptions();
 }
 
 function updateWordGroups() {
@@ -68,7 +90,7 @@ function updateWordGroups() {
     groupDiv.className = 'group-item';
     groupDiv.innerHTML = `
       <input type="text" value="${groupName}" data-original="${groupName}">
-      <button class="delete-btn">Delete</button>
+      <button class="delete-btn">Delete group</button>
     `;
     container.appendChild(groupDiv);
 
@@ -84,7 +106,7 @@ function updateWordGroups() {
       const listItem = document.createElement('li');
       listItem.innerHTML = `
         <input type="text" value="${word}">
-        <button class="delete-btn">Delete</button>
+        <button class="delete-btn">Delete URL</button>
       `;
       wordList.appendChild(listItem);
 
