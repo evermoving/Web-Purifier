@@ -89,15 +89,17 @@ function updateWordGroups() {
     const groupDiv = document.createElement('div');
     groupDiv.className = 'group-item';
     groupDiv.innerHTML = `
-      <input type="text" value="${groupName}" data-original="${groupName}">
-      <button class="delete-btn">Delete group</button>
+      <div class="group-header">
+        <label>Group name: <input type="text" value="${groupName}" data-original="${groupName}"></label>
+        <button class="delete-btn delete-group-btn">Delete group</button>
+      </div>
     `;
     container.appendChild(groupDiv);
 
     const input = groupDiv.querySelector('input');
     input.addEventListener('change', () => updateGroupName('word', groupName, input.value));
 
-    const deleteBtn = groupDiv.querySelector('.delete-btn');
+    const deleteBtn = groupDiv.querySelector('.delete-group-btn');
     deleteBtn.addEventListener('click', () => deleteGroup('word', groupName));
 
     const wordList = document.createElement('ul');
@@ -105,8 +107,8 @@ function updateWordGroups() {
     words.forEach(word => {
       const listItem = document.createElement('li');
       listItem.innerHTML = `
-        <input type="text" value="${word}">
-        <button class="delete-btn">Delete URL</button>
+        <label>Word: <input type="text" value="${word}"></label>
+        <button class="delete-btn delete-url-btn">Delete word</button>
       `;
       wordList.appendChild(listItem);
 
@@ -117,8 +119,39 @@ function updateWordGroups() {
       deleteWordBtn.addEventListener('click', () => deleteWord(groupName, word));
     });
     groupDiv.appendChild(wordList);
+
+    const addWordBtn = document.createElement('button');
+    addWordBtn.textContent = 'Add Word';
+    addWordBtn.className = 'btn add-url-btn';
+    addWordBtn.addEventListener('click', () => addWordToGroup(groupName, wordList));
+    groupDiv.appendChild(addWordBtn);
   }
 }
+
+function createWordListItem(groupName, word) {
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `
+    <label>Word: <input type="text" value="${word}"></label>
+    <button class="delete-btn delete-url-btn">Delete word</button>
+  `;
+
+  const wordInput = listItem.querySelector('input');
+  wordInput.addEventListener('change', () => updateWord(groupName, word, wordInput.value));
+
+  const deleteWordBtn = listItem.querySelector('.delete-btn');
+  deleteWordBtn.addEventListener('click', () => deleteWord(groupName, word));
+
+  return listItem;
+}
+
+function addWordToGroup(groupName, wordList) {
+  const newWord = '';
+  wordGroups[groupName].push(newWord);
+  const listItem = createWordListItem(groupName, newWord);
+  wordList.appendChild(listItem);
+  saveOptions();
+}
+
 
 function updateAssignments() {
   const container = document.getElementById('assignments');

@@ -4,15 +4,15 @@
     "version": "1.0",
     "description": "Hide page elements containing specified keywords",
     "icons": {
-      "48": "icons/icon-48.png",
-      "96": "icons/icon-96.png"
+      "48": "icons/pagepurifier_48.png",
+      "96": "icons/pagepurifier_96.png"
     },
     "permissions": [
       "storage",
       "activeTab"
     ],
     "browser_action": {
-      "default_icon": "icons/icon-48.png",
+      "default_icon": "icons/pagepurifier_48.png",
       "default_title": "PagePurifier",
       "default_popup": "popup/popup.html"
     },
