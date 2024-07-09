@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('add-word').addEventListener('click', addWord);
   document.getElementById('save-word-group').addEventListener('click', saveWordGroup);
   document.getElementById('save-assignment').addEventListener('click', saveAssignment);
+  document.getElementById('website-group-select').addEventListener('change', updateWordGroupCheckboxes);
 });
 
 async function loadOptions() {
@@ -21,6 +22,8 @@ async function loadOptions() {
   updateWebsiteGroups();
   updateWordGroups();
   updateAssignments();
+  updateWebsiteGroupSelect();
+  updateWordGroupCheckboxes();
 }
 
 function updateWebsiteGroups() {
@@ -37,8 +40,6 @@ function updateWebsiteGroups() {
     `;
     container.appendChild(groupDiv);
   }
-  
-  updateWebsiteGroupSelect();
 }
 
 function updateWordGroups() {
@@ -55,8 +56,6 @@ function updateWordGroups() {
     `;
     container.appendChild(groupDiv);
   }
-  
-  updateWordGroupSelect();
 }
 
 function updateAssignments() {
@@ -87,15 +86,21 @@ function updateWebsiteGroupSelect() {
   }
 }
 
-function updateWordGroupSelect() {
-  const select = document.getElementById('word-group-select');
-  select.innerHTML = '';
+function updateWordGroupCheckboxes() {
+  const container = document.getElementById('word-group-checkboxes');
+  container.innerHTML = '';
+  
+  const selectedWebsiteGroup = document.getElementById('website-group-select').value;
+  const assignedWordGroups = assignments[selectedWebsiteGroup] || [];
   
   for (const groupName of Object.keys(wordGroups)) {
-    const option = document.createElement('option');
-    option.value = groupName;
-    option.textContent = groupName;
-    select.appendChild(option);
+    const checkboxItem = document.createElement('div');
+    checkboxItem.className = 'checkbox-item';
+    checkboxItem.innerHTML = `
+      <input type="checkbox" id="wg-${groupName}" value="${groupName}" ${assignedWordGroups.includes(groupName) ? 'checked' : ''}>
+      <label for="wg-${groupName}">${groupName}</label>
+    `;
+    container.appendChild(checkboxItem);
   }
 }
 
@@ -111,6 +116,7 @@ function addWebsite() {
     websiteGroups[groupName].push(website);
     websiteInput.value = '';
     updateWebsiteGroups();
+    updateWebsiteGroupSelect();
   }
 }
 
@@ -130,6 +136,7 @@ function addWord() {
     wordGroups[groupName].push(word);
     wordInput.value = '';
     updateWordGroups();
+    updateWordGroupCheckboxes();
   }
 }
 
@@ -139,8 +146,7 @@ function saveWordGroup() {
 
 function saveAssignment() {
   const websiteGroup = document.getElementById('website-group-select').value;
-  const wordGroupSelect = document.getElementById('word-group-select');
-  const selectedWordGroups = Array.from(wordGroupSelect.selectedOptions).map(option => option.value);
+  const selectedWordGroups = Array.from(document.querySelectorAll('#word-group-checkboxes input:checked')).map(checkbox => checkbox.value);
   
   if (websiteGroup && selectedWordGroups.length > 0) {
     assignments[websiteGroup] = selectedWordGroups;

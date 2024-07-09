@@ -1,8 +1,17 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
     max-width: 800px;
     margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
     padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   h1, h2 {
@@ -12,10 +21,21 @@ body {
   .groups-container {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
   }
   
   .group-section {
-    width: 45%;
+    width: 48%;
+  }
+  
+  .group-list, .assignments-list {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-height: 200px;
+    overflow-y: auto;
   }
   
   .add-group input,
@@ -23,9 +43,38 @@ body {
   .add-assignment select,
   .add-assignment button {
     margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
   }
   
   ul {
     list-style-type: none;
     padding-left: 0;
+  }
+  
+  .checkbox-list {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .checkbox-item {
+    margin-bottom: 5px;
   }
