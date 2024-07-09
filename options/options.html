@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PagePurifier Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <h1>PagePurifier Options</h1>
+  
+  <div class="groups-container">
+    <div class="group-section">
+      <h2>Website Groups</h2>
+      <div id="website-groups"></div>
+      <div class="add-group">
+        <input type="text" id="new-website-group" placeholder="Group name">
+        <input type="text" id="new-website" placeholder="Website URL">
+        <button id="add-website">Add Website</button>
+        <button id="save-website-group">Save Group</button>
+      </div>
+    </div>
+    
+    <div class="group-section">
+      <h2>Word Groups</h2>
+      <div id="word-groups"></div>
+      <div class="add-group">
+        <input type="text" id="new-word-group" placeholder="Group name">
+        <input type="text" id="new-word" placeholder="Keyword">
+        <button id="add-word">Add Word</button>
+        <button id="save-word-group">Save Group</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="assignments-section">
+    <h2>Group Assignments</h2>
+    <div id="assignments"></div>
+    <div class="add-assignment">
+      <select id="website-group-select"></select>
+      <select id="word-group-select" multiple></select>
+      <button id="save-assignment">Save Assignment</button>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
