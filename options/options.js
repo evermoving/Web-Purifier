@@ -45,13 +45,22 @@ function updateWebsiteGroups() {
     const groupDiv = document.createElement('div');
     groupDiv.className = 'card mb-3';
     groupDiv.innerHTML = `
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <input type="text" class="form-control w-auto" value="${groupName}" data-original="${groupName}">
-        <button class="btn btn-danger btn-sm delete-group-btn">Delete group</button>
+      <div class="card-header">
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label class="mb-0">Name:</label>
+          </div>
+          <div class="col-md-7">
+            <input type="text" class="form-control" value="${groupName}" data-original="${groupName}">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-danger btn-sm w-100 delete-group-btn">Delete group</button>
+          </div>
+        </div>
       </div>
       <ul class="list-group list-group-flush"></ul>
       <div class="card-footer">
-        <button class="btn btn-secondary btn-sm add-url-btn">Add URL</button>
+        <button class="btn btn-secondary btn-sm w-100 add-url-btn">Add URL</button>
       </div>
     `;
     container.appendChild(groupDiv);
@@ -75,10 +84,19 @@ function updateWebsiteGroups() {
 
 function createWebsiteListItem(groupName, website) {
   const listItem = document.createElement('li');
-  listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+  listItem.className = 'list-group-item';
   listItem.innerHTML = `
-    <input type="text" class="form-control w-75" value="${website}">
-    <button class="btn btn-danger btn-sm delete-url-btn">Delete URL</button>
+    <div class="row align-items-center">
+      <div class="col-md-3">
+        <label class="mb-0">URL:</label>
+      </div>
+      <div class="col-md-7">
+        <input type="text" class="form-control" value="${website}">
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-danger btn-sm w-100 delete-url-btn">Delete URL</button>
+      </div>
+    </div>
   `;
 
   const websiteInput = listItem.querySelector('input');
@@ -98,13 +116,22 @@ function updateWordGroups() {
     const groupDiv = document.createElement('div');
     groupDiv.className = 'card mb-3';
     groupDiv.innerHTML = `
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <input type="text" class="form-control w-auto" value="${groupName}" data-original="${groupName}">
-        <button class="btn btn-danger btn-sm delete-group-btn">Delete group</button>
+      <div class="card-header">
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <label class="mb-0">Name:</label>
+          </div>
+          <div class="col-md-7">
+            <input type="text" class="form-control" value="${groupName}" data-original="${groupName}">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-danger btn-sm w-100 delete-group-btn">Delete group</button>
+          </div>
+        </div>
       </div>
       <ul class="list-group list-group-flush"></ul>
       <div class="card-footer">
-        <button class="btn btn-secondary btn-sm add-word-btn">Add Word</button>
+        <button class="btn btn-secondary btn-sm w-100 add-word-btn">Add Word</button>
       </div>
     `;
     container.appendChild(groupDiv);
@@ -128,10 +155,19 @@ function updateWordGroups() {
 
 function createWordListItem(groupName, word) {
   const listItem = document.createElement('li');
-  listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+  listItem.className = 'list-group-item';
   listItem.innerHTML = `
-    <input type="text" class="form-control w-75" value="${word}">
-    <button class="btn btn-danger btn-sm delete-word-btn">Delete word</button>
+    <div class="row align-items-center">
+      <div class="col-md-3">
+        <label class="mb-0">Word:</label>
+      </div>
+      <div class="col-md-7">
+        <input type="text" class="form-control" value="${word}">
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-danger btn-sm w-100 delete-word-btn">Delete word</button>
+      </div>
+    </div>
   `;
 
   const wordInput = listItem.querySelector('input');

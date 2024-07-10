@@ -19,3 +19,21 @@ body {
 .word-group-tag.inactive {
   opacity: 0.5;
 }
+
+.card-header .form-control,
+.list-group-item .form-control {
+  height: calc(1.5em + 0.5rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.card-header .btn,
+.list-group-item .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.card-header label,
+.list-group-item label {
+  font-size: 0.875rem;
+}
