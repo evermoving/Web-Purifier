@@ -47,20 +47,20 @@ function updateWebsiteGroups() {
     groupDiv.innerHTML = `
       <div class="card-header">
         <div class="row align-items-center">
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="mb-0">Name:</label>
           </div>
-          <div class="col-md-7">
+          <div class="col-md-8">
             <input type="text" class="form-control" value="${groupName}" data-original="${groupName}">
           </div>
-          <div class="col-md-2">
-            <button class="btn btn-danger btn-sm w-100 delete-group-btn">Delete group</button>
+          <div class="col-md-2 text-end">
+            <button class="btn btn-danger btn-sm delete-group-btn">Delete group</button>
           </div>
         </div>
       </div>
       <ul class="list-group list-group-flush"></ul>
       <div class="card-footer">
-        <button class="btn btn-secondary btn-sm w-100 add-url-btn">Add URL</button>
+        <button class="btn btn-secondary btn-sm add-url-btn">Add URL</button>
       </div>
     `;
     container.appendChild(groupDiv);
@@ -87,14 +87,14 @@ function createWebsiteListItem(groupName, website) {
   listItem.className = 'list-group-item';
   listItem.innerHTML = `
     <div class="row align-items-center">
-      <div class="col-md-3">
+      <div class="col-md-2">
         <label class="mb-0">URL:</label>
       </div>
-      <div class="col-md-7">
+      <div class="col-md-8">
         <input type="text" class="form-control" value="${website}">
       </div>
-      <div class="col-md-2">
-        <button class="btn btn-danger btn-sm w-100 delete-url-btn">Delete URL</button>
+      <div class="col-md-2 text-end">
+        <button class="btn btn-danger btn-sm delete-url-btn">Delete URL</button>
       </div>
     </div>
   `;
@@ -118,20 +118,20 @@ function updateWordGroups() {
     groupDiv.innerHTML = `
       <div class="card-header">
         <div class="row align-items-center">
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="mb-0">Name:</label>
           </div>
-          <div class="col-md-7">
+          <div class="col-md-8">
             <input type="text" class="form-control" value="${groupName}" data-original="${groupName}">
           </div>
-          <div class="col-md-2">
-            <button class="btn btn-danger btn-sm w-100 delete-group-btn">Delete group</button>
+          <div class="col-md-2 text-end">
+            <button class="btn btn-danger btn-sm delete-group-btn">Delete group</button>
           </div>
         </div>
       </div>
       <ul class="list-group list-group-flush"></ul>
       <div class="card-footer">
-        <button class="btn btn-secondary btn-sm w-100 add-word-btn">Add Word</button>
+        <button class="btn btn-secondary btn-sm add-word-btn">Add Word</button>
       </div>
     `;
     container.appendChild(groupDiv);
@@ -158,14 +158,14 @@ function createWordListItem(groupName, word) {
   listItem.className = 'list-group-item';
   listItem.innerHTML = `
     <div class="row align-items-center">
-      <div class="col-md-3">
+      <div class="col-md-2">
         <label class="mb-0">Word:</label>
       </div>
-      <div class="col-md-7">
+      <div class="col-md-8">
         <input type="text" class="form-control" value="${word}">
       </div>
-      <div class="col-md-2">
-        <button class="btn btn-danger btn-sm w-100 delete-word-btn">Delete word</button>
+      <div class="col-md-2 text-end">
+        <button class="btn btn-danger btn-sm delete-word-btn">Delete word</button>
       </div>
     </div>
   `;

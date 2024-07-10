@@ -37,3 +37,16 @@ body {
 .list-group-item label {
   font-size: 0.875rem;
 }
+
+.delete-group-btn {
+  width: 120px;
+}
+
+.add-url-btn {
+  width: auto;
+}
+
+.delete-url-btn,
+.delete-word-btn {
+  width: 120px;
+}
