@@ -26,11 +26,15 @@ function updateWebsiteGroups() {
   
   for (const [groupName, websites] of Object.entries(websiteGroups)) {
     const groupDiv = document.createElement('div');
-    groupDiv.className = 'group-item';
+    groupDiv.className = 'card mb-3';
     groupDiv.innerHTML = `
-      <div class="group-header">
-        <label>Group name: <input type="text" value="${groupName}" data-original="${groupName}"></label>
-        <button class="delete-btn delete-group-btn">Delete group</button>
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <input type="text" class="form-control w-auto" value="${groupName}" data-original="${groupName}">
+        <button class="btn btn-danger btn-sm delete-group-btn">Delete group</button>
+      </div>
+      <ul class="list-group list-group-flush"></ul>
+      <div class="card-footer">
+        <button class="btn btn-secondary btn-sm add-url-btn">Add URL</button>
       </div>
     `;
     container.appendChild(groupDiv);
@@ -41,27 +45,23 @@ function updateWebsiteGroups() {
     const deleteBtn = groupDiv.querySelector('.delete-group-btn');
     deleteBtn.addEventListener('click', () => deleteGroup('website', groupName));
 
-    const websiteList = document.createElement('ul');
-    websiteList.className = 'group-content';
+    const websiteList = groupDiv.querySelector('.list-group');
     websites.forEach(website => {
       const listItem = createWebsiteListItem(groupName, website);
       websiteList.appendChild(listItem);
     });
-    groupDiv.appendChild(websiteList);
 
-    const addUrlBtn = document.createElement('button');
-    addUrlBtn.textContent = 'Add URL';
-    addUrlBtn.className = 'btn add-url-btn';
+    const addUrlBtn = groupDiv.querySelector('.add-url-btn');
     addUrlBtn.addEventListener('click', () => addUrlToGroup(groupName, websiteList));
-    groupDiv.appendChild(addUrlBtn);
   }
 }
 
 function createWebsiteListItem(groupName, website) {
   const listItem = document.createElement('li');
+  listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
   listItem.innerHTML = `
-    <label>URL: <input type="text" value="${website}"></label>
-    <button class="delete-btn delete-url-btn">Delete URL</button>
+    <input type="text" class="form-control w-75" value="${website}">
+    <button class="btn btn-danger btn-sm delete-url-btn">Delete URL</button>
   `;
 
   const websiteInput = listItem.querySelector('input');
@@ -73,25 +73,21 @@ function createWebsiteListItem(groupName, website) {
   return listItem;
 }
 
-function addUrlToGroup(groupName, websiteList) {
-  const newWebsite = '';
-  websiteGroups[groupName].push(newWebsite);
-  const listItem = createWebsiteListItem(groupName, newWebsite);
-  websiteList.appendChild(listItem);
-  saveOptions();
-}
-
 function updateWordGroups() {
   const container = document.getElementById('word-groups');
   container.innerHTML = '';
   
   for (const [groupName, words] of Object.entries(wordGroups)) {
     const groupDiv = document.createElement('div');
-    groupDiv.className = 'group-item';
+    groupDiv.className = 'card mb-3';
     groupDiv.innerHTML = `
-      <div class="group-header">
-        <label>Group name: <input type="text" value="${groupName}" data-original="${groupName}"></label>
-        <button class="delete-btn delete-group-btn">Delete group</button>
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <input type="text" class="form-control w-auto" value="${groupName}" data-original="${groupName}">
+        <button class="btn btn-danger btn-sm delete-group-btn">Delete group</button>
+      </div>
+      <ul class="list-group list-group-flush"></ul>
+      <div class="card-footer">
+        <button class="btn btn-secondary btn-sm add-word-btn">Add Word</button>
       </div>
     `;
     container.appendChild(groupDiv);
@@ -102,56 +98,33 @@ function updateWordGroups() {
     const deleteBtn = groupDiv.querySelector('.delete-group-btn');
     deleteBtn.addEventListener('click', () => deleteGroup('word', groupName));
 
-    const wordList = document.createElement('ul');
-    wordList.className = 'group-content';
+    const wordList = groupDiv.querySelector('.list-group');
     words.forEach(word => {
-      const listItem = document.createElement('li');
-      listItem.innerHTML = `
-        <label>Word: <input type="text" value="${word}"></label>
-        <button class="delete-btn delete-url-btn">Delete word</button>
-      `;
+      const listItem = createWordListItem(groupName, word);
       wordList.appendChild(listItem);
-
-      const wordInput = listItem.querySelector('input');
-      wordInput.addEventListener('change', () => updateWord(groupName, word, wordInput.value));
-
-      const deleteWordBtn = listItem.querySelector('.delete-btn');
-      deleteWordBtn.addEventListener('click', () => deleteWord(groupName, word));
     });
-    groupDiv.appendChild(wordList);
 
-    const addWordBtn = document.createElement('button');
-    addWordBtn.textContent = 'Add Word';
-    addWordBtn.className = 'btn add-url-btn';
+    const addWordBtn = groupDiv.querySelector('.add-word-btn');
     addWordBtn.addEventListener('click', () => addWordToGroup(groupName, wordList));
-    groupDiv.appendChild(addWordBtn);
   }
 }
 
 function createWordListItem(groupName, word) {
   const listItem = document.createElement('li');
+  listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
   listItem.innerHTML = `
-    <label>Word: <input type="text" value="${word}"></label>
-    <button class="delete-btn delete-url-btn">Delete word</button>
+    <input type="text" class="form-control w-75" value="${word}">
+    <button class="btn btn-danger btn-sm delete-word-btn">Delete word</button>
   `;
 
   const wordInput = listItem.querySelector('input');
   wordInput.addEventListener('change', () => updateWord(groupName, word, wordInput.value));
 
-  const deleteWordBtn = listItem.querySelector('.delete-btn');
+  const deleteWordBtn = listItem.querySelector('.delete-word-btn');
   deleteWordBtn.addEventListener('click', () => deleteWord(groupName, word));
 
   return listItem;
 }
-
-function addWordToGroup(groupName, wordList) {
-  const newWord = '';
-  wordGroups[groupName].push(newWord);
-  const listItem = createWordListItem(groupName, newWord);
-  wordList.appendChild(listItem);
-  saveOptions();
-}
-
 
 function updateAssignments() {
   const container = document.getElementById('assignments');
@@ -159,18 +132,23 @@ function updateAssignments() {
   
   for (const websiteGroup of Object.keys(websiteGroups)) {
     const assignmentDiv = document.createElement('div');
-    assignmentDiv.className = 'assignment-item';
+    assignmentDiv.className = 'col-md-6 mb-3';
     assignmentDiv.innerHTML = `
-      <h3>${websiteGroup}</h3>
-      <div class="word-group-list"></div>
+      <div class="card">
+        <div class="card-header">${websiteGroup}</div>
+        <div class="card-body">
+          <div class="word-group-list d-flex flex-wrap gap-2"></div>
+        </div>
+      </div>
     `;
     container.appendChild(assignmentDiv);
 
     const wordGroupListDiv = assignmentDiv.querySelector('.word-group-list');
     Object.keys(wordGroups).forEach(wordGroup => {
       const wordGroupTag = document.createElement('span');
-      wordGroupTag.className = `word-group-tag ${assignments[websiteGroup]?.includes(wordGroup) ? 'active' : 'inactive'}`;
+      wordGroupTag.className = `badge ${assignments[websiteGroup]?.includes(wordGroup) ? 'bg-primary' : 'bg-secondary'}`;
       wordGroupTag.textContent = wordGroup;
+      wordGroupTag.style.cursor = 'pointer';
       wordGroupTag.addEventListener('click', () => toggleAssignment(websiteGroup, wordGroup));
       wordGroupListDiv.appendChild(wordGroupTag);
     });
@@ -237,6 +215,9 @@ function updateGroupName(type, oldName, newName) {
       }
     }
     saveOptions();
+    updateWebsiteGroups();
+    updateWordGroups();
+    updateAssignments();
   }
 }
 
@@ -300,9 +281,22 @@ function toggleAssignment(websiteGroup, wordGroup) {
   saveOptions();
 }
 
+function addUrlToGroup(groupName, websiteList) {
+  const newWebsite = '';
+  websiteGroups[groupName].push(newWebsite);
+  const listItem = createWebsiteListItem(groupName, newWebsite);
+  websiteList.appendChild(listItem);
+  saveOptions();
+}
+
+function addWordToGroup(groupName, wordList) {
+  const newWord = '';
+  wordGroups[groupName].push(newWord);
+  const listItem = createWordListItem(groupName, newWord);
+  wordList.appendChild(listItem);
+  saveOptions();
+}
+
 function saveOptions() {
   browser.storage.local.set({ websiteGroups, wordGroups, assignments });
 }
-
-// Initial load
-loadOptions();

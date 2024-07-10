@@ -2,39 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PagePurifier Options</title>
-  <link rel="stylesheet" href="options.css">
+  <link rel="stylesheet" href="../lib/bootstrap.min.css">
 </head>
 <body>
-  <div class="container">
-    <h1>PagePurifier Options</h1>
+  <div class="container py-4">
+    <h1 class="mb-4 text-primary">PagePurifier Options</h1>
     
-    <div class="group-section">
-      <h2>Website Groups</h2>
-      <div id="website-groups" class="group-list"></div>
-      <div class="add-group">
-        <input type="text" id="new-website-group" placeholder="Group name">
-        <input type="text" id="new-website" placeholder="Website URL">
-        <button id="add-website" class="btn">Add Website</button>
+    <div class="mb-5">
+      <h2 class="mb-3">Website Groups</h2>
+      <div id="website-groups" class="mb-3"></div>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input type="text" id="new-website-group" class="form-control" placeholder="Group name">
+        </div>
+        <div class="col-md-5">
+          <input type="text" id="new-website" class="form-control" placeholder="Website URL">
+        </div>
+        <div class="col-md-3">
+          <button id="add-website" class="btn btn-primary w-100">Add Website</button>
+        </div>
       </div>
     </div>
     
-    <div class="group-section">
-      <h2>Word Groups</h2>
-      <div id="word-groups" class="group-list"></div>
-      <div class="add-group">
-        <input type="text" id="new-word-group" placeholder="Group name">
-        <input type="text" id="new-word" placeholder="Keyword">
-        <button id="add-word" class="btn">Add Word</button>
+    <div class="mb-5">
+      <h2 class="mb-3">Word Groups</h2>
+      <div id="word-groups" class="mb-3"></div>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input type="text" id="new-word-group" class="form-control" placeholder="Group name">
+        </div>
+        <div class="col-md-5">
+          <input type="text" id="new-word" class="form-control" placeholder="Keyword">
+        </div>
+        <div class="col-md-3">
+          <button id="add-word" class="btn btn-primary w-100">Add Word</button>
+        </div>
       </div>
     </div>
     
-    <div class="assignments-section">
-      <h2>Group Assignments</h2>
-      <div id="assignments" class="assignments-list"></div>
+    <div>
+      <h2 class="mb-3">Group Assignments</h2>
+      <div id="assignments" class="row g-3"></div>
     </div>
   </div>
 
+  <script src="../lib/bootstrap.bundle.min.js"></script>
   <script src="options.js"></script>
 </body>
 </html>
