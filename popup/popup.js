@@ -4,13 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load the current state
   browser.storage.local.get('enabled', (result) => {
-    enableToggle.checked = result.enabled !== false;
+    enableToggle.checked = result.enabled === true;
   });
 
   // Update the state when the toggle is changed
   enableToggle.addEventListener('change', () => {
     browser.storage.local.set({ enabled: enableToggle.checked });
-    updateContentScript();
   });
 
   // Open the options page when the button is clicked
@@ -18,9 +17,3 @@ document.addEventListener('DOMContentLoaded', () => {
     browser.runtime.openOptionsPage();
   });
 });
-
-function updateContentScript() {
-  browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    browser.tabs.sendMessage(tabs[0].id, { action: 'updateState' });
-  });
-}
