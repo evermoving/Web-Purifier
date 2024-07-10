@@ -7,7 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.getElementById('add-website').addEventListener('click', addWebsite);
   document.getElementById('add-word').addEventListener('click', addWord);
+  document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+
+  // Load dark mode preference
+  const darkMode = localStorage.getItem('darkMode') === 'true';
+  setDarkMode(darkMode);
 });
+
+function toggleDarkMode() {
+  const darkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  setDarkMode(!darkMode);
+}
+
+function setDarkMode(darkMode) {
+  document.documentElement.setAttribute('data-bs-theme', darkMode ? 'dark' : 'light');
+  localStorage.setItem('darkMode', darkMode);
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  darkModeToggle.innerHTML = darkMode ? '<i class="bi bi-sun-fill"></i> Light Mode' : '<i class="bi bi-moon-fill"></i> Dark Mode';
+}
 
 async function loadOptions() {
   const result = await browser.storage.local.get(['websiteGroups', 'wordGroups', 'assignments']);
@@ -146,9 +163,8 @@ function updateAssignments() {
     const wordGroupListDiv = assignmentDiv.querySelector('.word-group-list');
     Object.keys(wordGroups).forEach(wordGroup => {
       const wordGroupTag = document.createElement('span');
-      wordGroupTag.className = `badge ${assignments[websiteGroup]?.includes(wordGroup) ? 'bg-primary' : 'bg-secondary'}`;
+      wordGroupTag.className = `badge ${assignments[websiteGroup]?.includes(wordGroup) ? 'bg-primary' : 'bg-secondary'} word-group-tag`;
       wordGroupTag.textContent = wordGroup;
-      wordGroupTag.style.cursor = 'pointer';
       wordGroupTag.addEventListener('click', () => toggleAssignment(websiteGroup, wordGroup));
       wordGroupListDiv.appendChild(wordGroupTag);
     });
