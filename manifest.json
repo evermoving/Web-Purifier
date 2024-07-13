@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "PagePurifier",
+  "name": "Web Purifier",
   "version": "1.0",
   "description": "Hide page elements containing specified keywords",
   "icons": {
@@ -14,7 +14,7 @@
   ],
   "browser_action": {
     "default_icon": "icons/pagepurifier_48.png",
-    "default_title": "PagePurifier",
+    "default_title": "Web Purifier",
     "default_popup": "popup/popup.html"
   },
   "options_ui": {
