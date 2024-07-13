@@ -12,9 +12,15 @@
   <div class="container py-4" style="max-width: 900px;">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="text-primary">PagePurifier Options</h1>
-      <button id="darkModeToggle" class="btn btn-outline-primary">
-        <i class="bi bi-moon-fill"></i> Dark Mode
-      </button>
+      <div>
+        <button id="howToUse" class="btn btn-outline-primary me-2" data-bs-toggle="tooltip" data-bs-html="true" title="Guide for the user:<br>1. Create a group of words that you want to be filtered.<br>2. Create a group of websites that you want to apply the group of words to<br>3. Assign the word group to the website group clicking on it in the 'Group assignments' section.<br><br>If you want a given filter word group to apply to all websites, use the 'All websites' website group present by default in 'Group assignments' section.">
+          How to use
+        </button>
+        <a href="https://www.bbc.co.uk" target="_blank" class="btn btn-outline-primary me-2">Report an issue</a>
+        <button id="darkModeToggle" class="btn btn-outline-primary">
+          <i class="bi bi-moon-fill"></i> Dark Mode
+        </button>
+      </div>
     </div>
     
     <div class="mb-5">
@@ -55,9 +61,16 @@
       </div>
     </div>
     
-    <div>
+    <div class="mb-5">
       <h2 class="mb-3">Group Assignments</h2>
       <div id="assignments" class="row g-3"></div>
+    </div>
+
+    <div class="text-center mt-5">
+      <p>If you found the extension useful, consider supporting the developer</p>
+      <a href="https://www.bbc.co.uk" target="_blank" class="btn btn-primary">
+        <i class="bi bi-heart-fill"></i> Donate
+      </a>
     </div>
   </div>
 
