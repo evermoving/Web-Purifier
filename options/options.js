@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load dark mode preference
   const darkMode = localStorage.getItem('darkMode') === 'true';
   setDarkMode(darkMode);
+
+  // Initialize 'All websites' group if it doesn't exist
+  if (!assignments['All websites']) {
+    assignments['All websites'] = [];
+  }
 });
 
 function toggleDarkMode() {
@@ -183,6 +188,29 @@ function updateAssignments() {
   const container = document.getElementById('assignments');
   container.innerHTML = '';
   
+  // Add "All websites" group
+  const allWebsitesDiv = document.createElement('div');
+  allWebsitesDiv.className = 'col-md-6 mb-3';
+  allWebsitesDiv.innerHTML = `
+    <div class="card">
+      <div class="card-header">All websites</div>
+      <div class="card-body">
+        <div class="word-group-list d-flex flex-wrap gap-2"></div>
+      </div>
+    </div>
+  `;
+  container.appendChild(allWebsitesDiv);
+
+  const allWebsitesWordGroupListDiv = allWebsitesDiv.querySelector('.word-group-list');
+  Object.keys(wordGroups).forEach(wordGroup => {
+    const wordGroupTag = document.createElement('span');
+    wordGroupTag.className = `badge ${assignments['All websites']?.includes(wordGroup) ? 'bg-primary' : 'bg-secondary'} word-group-tag`;
+    wordGroupTag.textContent = wordGroup;
+    wordGroupTag.addEventListener('click', () => toggleAssignment('All websites', wordGroup));
+    allWebsitesWordGroupListDiv.appendChild(wordGroupTag);
+  });
+
+  // Add other website groups
   for (const websiteGroup of Object.keys(websiteGroups)) {
     const assignmentDiv = document.createElement('div');
     assignmentDiv.className = 'col-md-6 mb-3';

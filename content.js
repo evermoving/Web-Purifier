@@ -30,6 +30,9 @@ async function hideElements() {
     websiteGroups[group].some(url => currentUrl.includes(url))
   );
 
+  // Include 'All websites' group
+  applicableWebsiteGroups.push('All websites');
+
   const applicableWordGroups = applicableWebsiteGroups.flatMap(group => assignments[group] || []);
   const keywords = applicableWordGroups.flatMap(group => wordGroups[group] || []);
 
