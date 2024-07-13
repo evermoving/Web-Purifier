@@ -23,5 +23,10 @@
   },
   "background": {
     "scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "webpurifier@example.com"
+    }
   }
 }
