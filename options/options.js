@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!assignments['All websites']) {
     assignments['All websites'] = [];
   }
-  
+
+  // Initialize tooltips
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
-
 });
 
 function toggleDarkMode() {
@@ -33,8 +33,15 @@ function toggleDarkMode() {
 function setDarkMode(darkMode) {
   document.documentElement.setAttribute('data-bs-theme', darkMode ? 'dark' : 'light');
   localStorage.setItem('darkMode', darkMode);
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  darkModeToggle.innerHTML = darkMode ? '<i class="bi bi-sun-fill"></i> Light Mode' : '<i class="bi bi-moon-fill"></i> Dark Mode';
+  const darkModeIcon = document.getElementById('darkModeIcon');
+  const darkModeText = document.getElementById('darkModeText');
+  if (darkMode) {
+    darkModeIcon.className = 'bi bi-sun-fill';
+    darkModeText.textContent = 'Light Mode';
+  } else {
+    darkModeIcon.className = 'bi bi-moon-fill';
+    darkModeText.textContent = 'Dark Mode';
+  }
 }
 
 async function loadOptions() {
