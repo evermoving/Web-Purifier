@@ -13,11 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const darkMode = localStorage.getItem('darkMode') === 'true';
   setDarkMode(darkMode);
 
-  // Initialize 'All websites' group if it doesn't exist
-  if (!assignments['All websites']) {
-    assignments['All websites'] = [];
-  }
-
   // Initialize tooltips
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -45,10 +40,15 @@ function setDarkMode(darkMode) {
 }
 
 async function loadOptions() {
-  const result = await browser.storage.local.get(['websiteGroups', 'wordGroups', 'assignments']);
+  const result = await browser.storage.sync.get(['websiteGroups', 'wordGroups', 'assignments']);
   websiteGroups = result.websiteGroups || {};
   wordGroups = result.wordGroups || {};
   assignments = result.assignments || {};
+  
+  // Initialize 'All websites' group if it doesn't exist
+  if (!assignments['All websites']) {
+    assignments['All websites'] = [];
+  }
   
   updateWebsiteGroups();
   updateWordGroups();
@@ -391,5 +391,5 @@ function addWordToGroup(groupName, wordList) {
 }
 
 function saveOptions() {
-  browser.storage.local.set({ websiteGroups, wordGroups, assignments });
+  browser.storage.sync.set({ websiteGroups, wordGroups, assignments });
 }

@@ -16,7 +16,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 async function hideElements() {
-  const { enabled, websiteGroups, wordGroups, assignments } = await browser.storage.local.get([
+  const { enabled, websiteGroups, wordGroups, assignments } = await browser.storage.sync.get([
     'enabled',
     'websiteGroups',
     'wordGroups',

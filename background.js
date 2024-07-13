@@ -1,14 +1,18 @@
 browser.runtime.onInstalled.addListener(() => {
-  browser.storage.local.set({
-    enabled: false,
-    websiteGroups: {},
-    wordGroups: {},
-    assignments: {}
+  browser.storage.sync.get(['enabled', 'websiteGroups', 'wordGroups', 'assignments'], (result) => {
+    if (Object.keys(result).length === 0) {
+      browser.storage.sync.set({
+        enabled: false,
+        websiteGroups: {},
+        wordGroups: {},
+        assignments: { 'All websites': [] }
+      });
+    }
   });
 });
 
 browser.storage.onChanged.addListener((changes, area) => {
-  if (area === 'local' && changes.enabled) {
+  if (area === 'sync' && changes.enabled) {
     updateContentScript(changes.enabled.newValue);
   }
 });
@@ -31,7 +35,7 @@ function updateContentScript(enabled) {
 
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete') {
-    browser.storage.local.get('enabled', (result) => {
+    browser.storage.sync.get('enabled', (result) => {
       if (result.enabled) {
         browser.tabs.executeScript(tabId, { file: 'content.js' });
       }
