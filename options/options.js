@@ -36,11 +36,11 @@ function setDarkMode(darkMode) {
   const darkModeIcon = document.getElementById('darkModeIcon');
   const darkModeText = document.getElementById('darkModeText');
   if (darkMode) {
-    darkModeIcon.className = 'bi bi-sun-fill';
-    darkModeText.textContent = 'Light Mode';
-  } else {
-    darkModeIcon.className = 'bi bi-moon-fill';
+    darkModeIcon.className = 'bi bi-moon';
     darkModeText.textContent = 'Dark Mode';
+  } else {
+    darkModeIcon.className = 'bi bi-sun';
+    darkModeText.textContent = 'Light Mode';
   }
 }
 
