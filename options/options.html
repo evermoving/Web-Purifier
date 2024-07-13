@@ -13,7 +13,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="text-primary">Web Purifier</h1>
       <div>
-        <button id="howToUse" class="btn btn-outline-primary me-2" data-bs-toggle="tooltip" data-bs-html="true" title="Guide for the user:<br>1. Create a group of words that you want to be filtered.<br>2. Create a group of websites that you want to apply the group of words to<br>3. Assign the word group to the website group clicking on it in the 'Group assignments' section.<br><br>If you want a given filter word group to apply to all websites, use the 'All websites' website group present by default in 'Group assignments' section.">
+        <button id="howToUse" class="btn btn-outline-primary me-2" data-bs-toggle="tooltip" data-bs-html="true" title="1. Create a group of words that you want to be filtered.<br>2. Create a group of websites that you want to apply the group of words to<br>3. Assign the word group to the website group clicking on it in the 'Group assignments' section.<br><br>To apply a word group to all websites, use the 'All websites' group in 'Group assignments' section.">
           How to use
         </button>
         <a href="https://www.bbc.co.uk" target="_blank" class="btn btn-outline-primary me-2">
@@ -30,16 +30,16 @@
       <div id="website-groups" class="mb-3"></div>
       <div class="row g-2 align-items-center">
         <div class="col-md-2">
-          <label for="new-website-group" class="col-form-label">Add new group:</label>
+          <label for="new-website-group" class="col-form-label">New group:</label>
         </div>
         <div class="col-md-3">
           <input type="text" id="new-website-group" class="form-control" placeholder="Group name">
         </div>
         <div class="col-md-4">
-          <input type="text" id="new-website" class="form-control" placeholder="Website URL">
+          <input type="text" id="new-website" class="form-control" placeholder="Website (e.g. nytimes.com)">
         </div>
         <div class="col-md-3">
-          <button id="add-website" class="btn btn-primary w-100">Add Website</button>
+          <button id="add-website" class="btn btn-primary w-100">Create Group</button>
         </div>
       </div>
     </div>
@@ -49,16 +49,16 @@
       <div id="word-groups" class="mb-3"></div>
       <div class="row g-2 align-items-center">
         <div class="col-md-2">
-          <label for="new-word-group" class="col-form-label">Add new group:</label>
+          <label for="new-word-group" class="col-form-label">New group:</label>
         </div>
         <div class="col-md-3">
           <input type="text" id="new-word-group" class="form-control" placeholder="Group name">
         </div>
         <div class="col-md-4">
-          <input type="text" id="new-word" class="form-control" placeholder="Keyword">
+          <input type="text" id="new-word" class="form-control" placeholder="Word to filter">
         </div>
         <div class="col-md-3">
-          <button id="add-word" class="btn btn-primary w-100">Add Word</button>
+          <button id="add-word" class="btn btn-primary w-100">Create Group</button>
         </div>
       </div>
     </div>
