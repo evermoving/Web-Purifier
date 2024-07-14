@@ -18,6 +18,10 @@
 
 Or download it from [github releases](https://github.com/yourusername/web-purifier/releases/latest).
 
+# Screenshots
+
+<img src="screenshots/options2.png">
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
