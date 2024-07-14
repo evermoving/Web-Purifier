@@ -4,8 +4,12 @@
   "version": "1.0",
   "description": "Hide page elements containing specified keywords",
   "icons": {
-    "48": "icons/pagepurifier_48.png",
-    "96": "icons/pagepurifier_96.png"
+    "16": "icons/webpurifier_16.png",
+    "32": "icons/webpurifier_32.png",
+    "48": "icons/webpurifier_48.png",
+    "64": "icons/webpurifier_96.png",
+    "96": "icons/webpurifier_96.png",
+    "128": "icons/webpurifier_96.png"
   },
   "permissions": [
     "storage",
@@ -13,7 +17,7 @@
     "<all_urls>"
   ],
   "browser_action": {
-    "default_icon": "icons/pagepurifier_48.png",
+    "default_icon": "icons/webpurifier_48.png",
     "default_title": "Web Purifier",
     "default_popup": "popup/popup.html"
   },
