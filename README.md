@@ -6,7 +6,7 @@ If you want to hide news articles that contain words spaghetti and mayonnaise, b
 
 ## Features
 
-- **Group-based** filtering - both websites and words are inside groups that you can then apply to each other, offering more flexibility than traditional content filterers
+- **Group-based** filtering that offers more flexibility than traditional content filterers
 - Apply filters globally or to specific website groups
 - Immediate hiding of filtered content on page load
 - User-friendly no-scripting UI
