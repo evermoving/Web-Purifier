@@ -1,4 +1,4 @@
-# ![icon](icons/webpurifier_32.png) Web Purifier
+# ![icon](icons/webpurifier_48.png) Web Purifier
 
 > **Web Purifier hides page elements containing specified keywords, giving you control over the content you see online.**
 
