@@ -10,7 +10,7 @@
 - User-friendly no-scripting UI
 - Dark theme option
 
-**Example:** If you want to hide news articles that contain words spaghetti and mayonnaise, but only if they appear on NYTimes and BBC, you can do that with Web Purifier. 
+**Example:** If you want to hide news articles that contain words weather and mayonaise, but only if they appear on NYTimes and BBC, you can do that with Web Purifier. 
  
 ## Installation
 
