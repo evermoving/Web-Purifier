@@ -2,12 +2,15 @@
 
 > **Web Purifier hides page elements containing specified keywords, giving you control over the content you see online.**
 
+If you want to hide news articles that contain words spaghetti and mayonnaise, but only if they appear on NYTimes and BBC, you can do that with Web Purifier. 
+
 ## Features
 
-- **Group-based** filtering 
+- **Group-based** filtering - both websites and words are inside groups that you can then apply to each other, offering more flexibility than traditional content filterers
 - Apply filters globally or to specific website groups
-- User-friendly no-scripting UI with dark and light modes 
 - Immediate hiding of filtered content on page load
+- User-friendly no-scripting UI
+- Dark theme option 
 
 **Example:** if you want to hide news articles that contain words spaghetti and mayonnaise, but only if they appear on nytimes.com or bbc.com, you can do that with Web Purifier. 
  
