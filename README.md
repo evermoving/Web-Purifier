@@ -24,7 +24,7 @@ Or download it from [github releases](https://github.com/yourusername/web-purifi
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [GNU General Public Licence V3.0](LICENSE).
 
 ## Support
 
