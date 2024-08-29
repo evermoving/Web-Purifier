@@ -4,17 +4,12 @@
   "version": "1.0",
   "description": "Hide page elements containing specified keywords",
   "icons": {
-    "16": "icons/webpurifier_16.png",
-    "32": "icons/webpurifier_32.png",
     "48": "icons/webpurifier_48.png",
-    "64": "icons/webpurifier_64.png",
-    "96": "icons/webpurifier_96.png",
-    "128": "icons/webpurifier_128.png"
+    "96": "icons/webpurifier_96.png"
   },
   "permissions": [
     "storage",
-    "activeTab",
-    "<all_urls>"
+    "activeTab"
   ],
   "browser_action": {
     "default_icon": "icons/webpurifier_48.png",
@@ -28,9 +23,10 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "webpurifier@example.com"
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
     }
-  }
+  ]
 }
